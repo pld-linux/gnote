@@ -1,12 +1,13 @@
 Summary:	Note-taking application
 Name:		gnote
-Version:	0.6.3
+Version:	0.7.2
 Release:	1
 License:	GPL v3
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnote/0.6/%{name}-%{version}.tar.bz2
-# Source0-md5:	930f1ad17c8856ae3ac1e53b9f436cbe
-Patch0:		%{name}-m4.patch
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnote/0.7/%{name}-%{version}.tar.bz2
+# Source0-md5:	c4e1a93896cb8610d2e08c72d41f1777
+Patch0:		%{name}-gtk_deprecated.patch
+Patch1:		%{name}-unicode.patch
 URL:		http://live.gnome.org/Gnote
 BuildRequires:	GConf2-devel
 BuildRequires:	autoconf >= 2.59
@@ -14,6 +15,7 @@ BuildRequires:	automake
 BuildRequires:	boost-devel
 BuildRequires:	gnome-common
 BuildRequires:	gnome-doc-utils
+BuildRequires:	gtk+2-devel >= 2.20.0
 BuildRequires:	gtkmm-devel >= 2.14.0
 BuildRequires:	gtkspell-devel >= 2.0.9
 BuildRequires:	intltool >= 0.35.0
@@ -41,6 +43,7 @@ of Tomboy to C++ and consumes fewer resources.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__intltoolize}
@@ -90,6 +93,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/gnote/addins/*/exporttohtml.so
 %attr(755,root,root) %{_libdir}/gnote/addins/*/fixedwidth.so
 %attr(755,root,root) %{_libdir}/gnote/addins/*/inserttimestamp.so
+%attr(755,root,root) %{_libdir}/gnote/addins/*/libnoteoftheday.so
 %attr(755,root,root) %{_libdir}/gnote/addins/*/printnotes.so
 %attr(755,root,root) %{_libdir}/gnote/addins/*/stickynoteimport.so
 %attr(755,root,root) %{_libdir}/gnote/addins/*/tomboyimport.so
