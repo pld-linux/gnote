@@ -1,0 +1,205 @@
+Squashed upstream patches:
+
+From 66f767499be801f5bb7389b50c1f0da22b2b6ce7 Mon Sep 17 00:00:00 2001
+From: Debarshi Ray <debarshir@src.gnome.org>
+Date: Mon, 15 Mar 2010 01:13:30 +0000
+Subject: Make sharp::string_to_lowercase, sharp::string_substring Unicode aware
+
+Fixes: https://bugzilla.gnome.org/610406
+
+From c5ed58df6fc690a3881aa495ce6a243ed65eeb5c Mon Sep 17 00:00:00 2001
+From: Aurimas Černius <aurisc4@gmail.com>
+Date: Fri, 12 Mar 2010 17:53:14 +0000
+Subject: Make TrieTree::add_keyword, TrieTree::find_matches Unicode aware
+
+Fixes: https://bugzilla.gnome.org/588537
+Fixes: https://bugzilla.gnome.org/606022
+
+Signed-off-by: Debarshi Ray <debarshir@src.gnome.org>
+
+From 789b02fefacd7cb69032b5a52def820c94087a04 Mon Sep 17 00:00:00 2001
+From: Debarshi Ray <debarshir@src.gnome.org>
+Date: Mon, 22 Mar 2010 14:28:59 +0000
+Subject: Fix auto-selection of newly created note's contents
+
+Fixes: https://bugzilla.gnome.org/608311
+---
+diff --git a/src/sharp/string.cpp b/src/sharp/string.cpp
+index 0066667..92244d9 100644
+--- a/src/sharp/string.cpp
++++ b/src/sharp/string.cpp
+@@ -76,18 +76,18 @@ namespace sharp {
+     boost::split(split, source, boost::is_any_of(delimiters));
+   }
+ 
+-  std::string string_substring(const std::string & source, int start)
++  Glib::ustring string_substring(const Glib::ustring & source, int start)
+   {
+     DBG_ASSERT(start >= 0, "start can't be negative");
+     if(source.size() <= (unsigned int)start) {
+       return "";
+     }
+-    return std::string(source.begin() + start, source.end());
++    return Glib::ustring(source, start, std::string::npos);
+   }
+ 
+-  std::string string_substring(const std::string & source, int start, int len)
++  Glib::ustring string_substring(const Glib::ustring & source, int start, int len)
+   {
+-    return std::string(source.begin() + start, source.begin() + start + len);
++    return Glib::ustring(source, start, len);
+   }
+ 
+   std::string string_trim(const std::string & source)
+@@ -155,9 +155,9 @@ namespace sharp {
+   }
+ 
+ 
+-  std::string string_to_lower(const std::string & source)
++  Glib::ustring string_to_lower(const Glib::ustring & source)
+   {
+-    return boost::to_lower_copy(source);
++    return source.lowercase();
+   }
+ 
+ }
+diff --git a/src/sharp/string.hpp b/src/sharp/string.hpp
+index 4ef6f22..628eaab 100644
+--- a/src/sharp/string.hpp
++++ b/src/sharp/string.hpp
+@@ -58,9 +58,9 @@ namespace sharp {
+                     const char * delimiters);
+ 
+   /** copy the substring for %source, starting at %start until the end */
+-  std::string string_substring(const std::string & source, int start);
++  Glib::ustring string_substring(const Glib::ustring & source, int start);
+   /** copy the substring for %source, starting at %start and running for %len */
+-  std::string string_substring(const std::string & source, int start, int len);
++  Glib::ustring string_substring(const Glib::ustring & source, int start, int len);
+ 
+   std::string string_trim(const std::string & source);
+   std::string string_trim(const std::string & source, const char * set_of_char);
+@@ -70,7 +70,7 @@ namespace sharp {
+   int string_index_of(const std::string & source, const std::string & with, int);
+   int string_last_index_of(const std::string & source, const std::string & with);
+ 
+-  std::string string_to_lower(const std::string & source);
++  Glib::ustring string_to_lower(const Glib::ustring & source);
+ }
+ 
+ 
+diff --git a/src/test/trietest.cpp b/src/test/trietest.cpp
+index 0435207..195e30b 100644
+--- a/src/test/trietest.cpp
++++ b/src/test/trietest.cpp
+@@ -9,7 +9,7 @@
+ 
+ int test_main(int /*argc*/, char ** /*argv*/)
+ {
+-  std::string src = "bazar this is some foo, bar, and baz bazbarfoofoo bazbazarbaz end bazar";
++  std::string src = "bazar this is some foo, bar, and baz BazBarFooFoo bazbazarbaz end bazar ąČęĖįŠųŪž";
+ 	printf("Searching in '%s':\n", src.c_str());
+ 
+   gnote::TrieTree<std::string> trie(false);
+@@ -17,12 +17,13 @@ int test_main(int /*argc*/, char ** /*argv*/)
+   trie.add_keyword ("bar", "bar");
+   trie.add_keyword ("baz", "baz");
+   trie.add_keyword ("bazar", "bazar");
++  trie.add_keyword ("ąčęėįšųūž", "ąčęėįšųūž");
+ 
+   printf ("Starting search...\n");
+   gnote::TrieTree<std::string>::HitListPtr matches(trie.find_matches (src));
+   BOOST_CHECK( matches.get() );
+ 
+-  BOOST_CHECK( matches->size() == 15 );
++  BOOST_CHECK( matches->size() == 16 );
+   gnote::TrieTree<std::string>::HitList::const_iterator iter = matches->begin();
+ 
+   BOOST_CHECK( *iter );
+diff --git a/src/trie.hpp b/src/trie.hpp
+index 319ecea..f457ce4 100644
+--- a/src/trie.hpp
++++ b/src/trie.hpp
+@@ -67,7 +67,7 @@ namespace gnote {
+         }
+       TrieMatchPtr next;
+       TrieStatePtr state;
+-      char         value;
++      gunichar     value;
+     };
+ 
+   public:
+@@ -90,7 +90,7 @@ namespace gnote {
+       }
+ 
+   private:
+-    TrieStatePtr insert_match_at_state(size_t depth, const TrieStatePtr & q, char c)
++    TrieStatePtr insert_match_at_state(size_t depth, const TrieStatePtr & q, gunichar c)
+       {
+         // Create a new state with a failure at %root
+         TrieStatePtr new_q(new TrieState ());
+@@ -120,7 +120,7 @@ namespace gnote {
+ 
+     // Iterate the matches at state %s looking for the first match
+     // containing %c.
+-    TrieMatchPtr find_match_at_state (const TrieStatePtr & s, char c) const
++    TrieMatchPtr find_match_at_state (const TrieStatePtr & s, gunichar c) const
+       {
+         TrieMatchPtr m = s->first_match;
+ 
+@@ -144,7 +144,7 @@ namespace gnote {
+      *   final = union(final, q)
+      * ENDFOR
+      */
+-    void add_keyword(const std::string & needle, const value_t & pattern_id)
++    void add_keyword(const Glib::ustring & needle, const value_t & pattern_id)
+       {
+         TrieStatePtr q = m_root;
+         int depth = 0;
+@@ -152,9 +152,9 @@ namespace gnote {
+         // Step 1: add the pattern to the trie...
+ 
+         for (size_t idx = 0; idx < needle.size(); idx++) {
+-          char c = needle [idx];
++          gunichar c = needle [idx];
+           if (!m_case_sensitive)
+-            c = ::tolower(c);
++            c = g_unichar_tolower(c);
+ 
+           TrieMatchPtr m = find_match_at_state (q, c);
+           if (m == NULL) {
+@@ -235,16 +235,16 @@ namespace gnote {
+      * ENDFOR
+      * RETURN FALSE
+      */
+-    HitListPtr find_matches(const std::string & haystack)
++    HitListPtr find_matches(const Glib::ustring & haystack)
+       {
+         HitListPtr matches(new HitList());
+         TrieStatePtr q = m_root;
+         TrieMatchPtr m;
+         size_t idx = 0, start_idx = 0, last_idx = 0;
+         while (idx < haystack.size()) {
+-          char c = haystack [idx++];
++          gunichar c = haystack [idx++];
+           if (!m_case_sensitive)
+-            c = ::tolower (c);
++            c = g_unichar_tolower(c);
+ 
+           while (q) {
+             m = find_match_at_state (q, c);
+diff --git a/src/notemanager.cpp b/src/notemanager.cpp
+index 0608009..c6e4849 100644
+--- a/src/notemanager.cpp
++++ b/src/notemanager.cpp
+@@ -593,7 +593,7 @@ namespace gnote {
+     // it so it can be easily overwritten
+     body = _("Describe your new note here.");
+     
+-    std::string header = title + "\n\n";
++    Glib::ustring header = title + "\n\n";
+     std::string content =
+       boost::str(boost::format("<note-content>%1%%2%</note-content>") %
+                  utils::XmlEncoder::encode (header) 
+--
+cgit v0.8.3.1
