@@ -1,7 +1,7 @@
 Summary:	Note-taking application
 Name:		gnote
 Version:	0.7.2
-Release:	1
+Release:	2
 License:	GPL v3
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnote/0.7/%{name}-%{version}.tar.bz2
@@ -31,7 +31,8 @@ BuildRequires:	pcre-cxx-devel
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.311
-Requires(post,postun):	gtk+2
+Requires(post,postun):	gtk-update-icon-cache
+Requires(post,postun):	hicolor-icon-theme
 Requires(post,preun):	GConf2
 Requires:	hicolor-icon-theme
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
