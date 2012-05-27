@@ -1,27 +1,23 @@
 Summary:	Note-taking application
 Name:		gnote
-Version:	0.7.2
-Release:	2
+Version:	0.8.3
+Release:	1
 License:	GPL v3
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnote/0.7/%{name}-%{version}.tar.bz2
-# Source0-md5:	c4e1a93896cb8610d2e08c72d41f1777
-Patch0:		%{name}-gtk_deprecated.patch
-Patch1:		%{name}-unicode.patch
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnote/0.8/%{name}-%{version}.tar.xz
+# Source0-md5:	f6342c881b24f1167cf66964c44ec027
 URL:		http://live.gnome.org/Gnote
-BuildRequires:	GConf2-devel
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
-BuildRequires:	boost-devel
+BuildRequires:	boost-devel >= 1.34.0
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-devel
 BuildRequires:	gnome-common
 BuildRequires:	gnome-doc-utils
-BuildRequires:	gtk+2-devel >= 2.20.0
-BuildRequires:	gtkmm-devel >= 2.14.0
+BuildRequires:	gtk+3-devel >= 3.0.0
+BuildRequires:	gtkmm3-devel
 BuildRequires:	gtkspell-devel >= 2.0.9
 BuildRequires:	intltool >= 0.35.0
-BuildRequires:	libpanelappletmm-devel >= 2.26.0
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
 BuildRequires:	libuuid-devel
@@ -30,10 +26,12 @@ BuildRequires:	libxslt-devel
 BuildRequires:	pcre-cxx-devel
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(find_lang) >= 1.23
-BuildRequires:	rpmbuild(macros) >= 1.311
+BuildRequires:	rpmbuild(macros) >= 1.592
+BuildRequires:	tar >= 1:1.22
+BuildRequires:	xz
+Requires(post,postun):	glib2 >= 1:2.26.0
 Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	hicolor-icon-theme
-Requires(post,preun):	GConf2
 Requires:	hicolor-icon-theme
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -45,8 +43,6 @@ of Tomboy to C++ and consumes fewer resources.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
 
 %build
 %{__intltoolize}
@@ -55,18 +51,16 @@ of Tomboy to C++ and consumes fewer resources.
 %{__autoconf}
 %{__autoheader}
 %{__automake}
-%configure \
-	--disable-schemas-install
-
-%{__make}
+%configure
+%{__make} V=1
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
+%{__make} V=1 install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-rm -f $RPM_BUILD_ROOT%{_libdir}/gnote/addins/*/*.{a,la}
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/gnote/addins/*/*.la
 
 %find_lang gnote --with-gnome --with-omf
 
@@ -74,20 +68,17 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/gnote/addins/*/*.{a,la}
 rm -rf $RPM_BUILD_ROOT
 
 %post
-%gconf_schema_install gnote.schemas
 %update_icon_cache hicolor
-
-%preun
-%gconf_schema_uninstall gnote.schemas
+%glib_compile_schemas
 
 %postun
 %update_icon_cache hicolor
+%glib_compile_schemas
 
 %files -f gnote.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README TODO
 %attr(755,root,root) %{_bindir}/gnote
-%attr(755,root,root) %{_libdir}/gnote-applet
 %dir %{_libdir}/gnote
 %dir %{_libdir}/gnote/addins
 %dir %{_libdir}/gnote/addins/%{version}
@@ -96,15 +87,16 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/gnote/addins/*/exporttohtml.so
 %attr(755,root,root) %{_libdir}/gnote/addins/*/fixedwidth.so
 %attr(755,root,root) %{_libdir}/gnote/addins/*/inserttimestamp.so
-%attr(755,root,root) %{_libdir}/gnote/addins/*/libnoteoftheday.so
+%attr(755,root,root) %{_libdir}/gnote/addins/*/noteoftheday.so
 %attr(755,root,root) %{_libdir}/gnote/addins/*/printnotes.so
+%attr(755,root,root) %{_libdir}/gnote/addins/*/replacetitle.so
 %attr(755,root,root) %{_libdir}/gnote/addins/*/stickynoteimport.so
 %attr(755,root,root) %{_libdir}/gnote/addins/*/tomboyimport.so
 %attr(755,root,root) %{_libdir}/gnote/addins/*/underline.so
-%{_libdir}/bonobo/servers/GNOME_GnoteApplet.server
+%{_datadir}/dbus-1/services/org.gnome.Gnote.service
+%{_datadir}/glib-2.0/schemas/org.gnome.gnote.gschema.xml
 %{_datadir}/gnote
 %{_desktopdir}/gnote.desktop
 %{_iconsdir}/hicolor/*/*/*.png
 %{_iconsdir}/hicolor/*/*/*.svg
 %{_mandir}/man1/gnote.1*
-%{_sysconfdir}/gconf/schemas/gnote.schemas
