@@ -1,11 +1,11 @@
 Summary:	Note-taking application
 Name:		gnote
-Version:	0.8.3
+Version:	3.6.1
 Release:	1
 License:	GPL v3
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnote/0.8/%{name}-%{version}.tar.xz
-# Source0-md5:	f6342c881b24f1167cf66964c44ec027
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnote/3.6/%{name}-%{version}.tar.xz
+# Source0-md5:	ea4fea28aa7ed52bc918193678c6524b
 URL:		http://live.gnome.org/Gnote
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
@@ -17,7 +17,9 @@ BuildRequires:	gnome-doc-utils
 BuildRequires:	gtk+3-devel >= 3.0.0
 BuildRequires:	gtkmm3-devel
 BuildRequires:	gtkspell-devel >= 2.0.9
+BuildRequires:	itstool
 BuildRequires:	intltool >= 0.35.0
+BuildRequires:	libsecret-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
 BuildRequires:	libuuid-devel
@@ -29,6 +31,8 @@ BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.592
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
+BuildRequires:	yelp-devel
+Requires(post,postun):	/sbin/ldconfig
 Requires(post,postun):	glib2 >= 1:2.26.0
 Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	hicolor-icon-theme
@@ -45,12 +49,6 @@ of Tomboy to C++ and consumes fewer resources.
 %setup -q
 
 %build
-%{__intltoolize}
-%{__libtoolize}
-%{__aclocal} -I m4
-%{__autoconf}
-%{__autoheader}
-%{__automake}
 %configure
 %{__make} V=1
 
@@ -68,10 +66,12 @@ rm -rf $RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT
 
 %post
+/sbin/ldconfig
 %update_icon_cache hicolor
 %glib_compile_schemas
 
 %postun
+/sbin/ldconfig
 %update_icon_cache hicolor
 %glib_compile_schemas
 
@@ -79,20 +79,25 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README TODO
 %attr(755,root,root) %{_bindir}/gnote
+%attr(755,root,root) %{_libdir}/libgnote-3.6.so.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgnote-3.6.so.0
 %dir %{_libdir}/gnote
 %dir %{_libdir}/gnote/addins
 %dir %{_libdir}/gnote/addins/%{version}
 %attr(755,root,root) %{_libdir}/gnote/addins/*/backlinks.so
 %attr(755,root,root) %{_libdir}/gnote/addins/*/bugzilla.so
 %attr(755,root,root) %{_libdir}/gnote/addins/*/exporttohtml.so
+%attr(755,root,root) %{_libdir}/gnote/addins/*/filesystemsyncservice.so
 %attr(755,root,root) %{_libdir}/gnote/addins/*/fixedwidth.so
 %attr(755,root,root) %{_libdir}/gnote/addins/*/inserttimestamp.so
+%attr(755,root,root) %{_libdir}/gnote/addins/*/notedirectorywatcher.so
 %attr(755,root,root) %{_libdir}/gnote/addins/*/noteoftheday.so
 %attr(755,root,root) %{_libdir}/gnote/addins/*/printnotes.so
 %attr(755,root,root) %{_libdir}/gnote/addins/*/replacetitle.so
 %attr(755,root,root) %{_libdir}/gnote/addins/*/stickynoteimport.so
 %attr(755,root,root) %{_libdir}/gnote/addins/*/tomboyimport.so
 %attr(755,root,root) %{_libdir}/gnote/addins/*/underline.so
+%attr(755,root,root) %{_libdir}/gnote/addins/*/webdavsyncservice.so
 %{_datadir}/dbus-1/services/org.gnome.Gnote.service
 %{_datadir}/glib-2.0/schemas/org.gnome.gnote.gschema.xml
 %{_datadir}/gnote
