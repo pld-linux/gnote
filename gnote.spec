@@ -1,7 +1,7 @@
 Summary:	Note-taking application
 Name:		gnote
 Version:	3.6.1
-Release:	1
+Release:	2
 License:	GPL v3
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnote/3.6/%{name}-%{version}.tar.xz
