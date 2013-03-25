@@ -1,11 +1,11 @@
 Summary:	Note-taking application
 Name:		gnote
-Version:	3.6.1
-Release:	2
+Version:	3.8.0
+Release:	1
 License:	GPL v3
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnote/3.6/%{name}-%{version}.tar.xz
-# Source0-md5:	ea4fea28aa7ed52bc918193678c6524b
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnote/3.8/%{name}-%{version}.tar.xz
+# Source0-md5:	f30a8334bfe06ab4733b480b95e0cc19
 URL:		http://live.gnome.org/Gnote
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
@@ -14,9 +14,9 @@ BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-devel
 BuildRequires:	gnome-common
 BuildRequires:	gnome-doc-utils
-BuildRequires:	gtk+3-devel >= 3.0.0
-BuildRequires:	gtkmm3-devel
-BuildRequires:	gtkspell-devel >= 2.0.9
+BuildRequires:	gtk+3-devel >= 3.6.0
+BuildRequires:	gtkmm3-devel >= 3.6.0
+BuildRequires:	gtkspell3-devel >= 3.0.0
 BuildRequires:	itstool
 BuildRequires:	intltool >= 0.35.0
 BuildRequires:	libsecret-devel
@@ -60,6 +60,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/gnote/addins/*/*.la
 
+# remove -devel files
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libgnote.{la,so}
+
 %find_lang gnote --with-gnome --with-omf
 
 %clean
@@ -79,8 +82,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README TODO
 %attr(755,root,root) %{_bindir}/gnote
-%attr(755,root,root) %{_libdir}/libgnote-3.6.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgnote-3.6.so.0
+%attr(755,root,root) %{_libdir}/libgnote-3.8.so.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgnote-3.8.so.0
 %dir %{_libdir}/gnote
 %dir %{_libdir}/gnote/addins
 %dir %{_libdir}/gnote/addins/%{version}
