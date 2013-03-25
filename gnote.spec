@@ -8,18 +8,19 @@ Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnote/3.8/%{name}-%{version}.tar
 # Source0-md5:	f30a8334bfe06ab4733b480b95e0cc19
 URL:		http://live.gnome.org/Gnote
 BuildRequires:	autoconf >= 2.59
-BuildRequires:	automake
+BuildRequires:	automake >= 1.11
 BuildRequires:	boost-devel >= 1.34.0
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-devel
+BuildRequires:	glibmm-devel >= 2.32
 BuildRequires:	gnome-common
 BuildRequires:	gnome-doc-utils
 BuildRequires:	gtk+3-devel >= 3.6.0
 BuildRequires:	gtkmm3-devel >= 3.6.0
 BuildRequires:	gtkspell3-devel >= 3.0.0
-BuildRequires:	itstool
 BuildRequires:	intltool >= 0.35.0
-BuildRequires:	libsecret-devel
+BuildRequires:	itstool
+BuildRequires:	libsecret-devel >= 0.8
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
 BuildRequires:	libuuid-devel
@@ -33,7 +34,7 @@ BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 BuildRequires:	yelp-devel
 Requires(post,postun):	/sbin/ldconfig
-Requires(post,postun):	glib2 >= 1:2.26.0
+Requires(post,postun):	glib2 >= 1:2.32.0
 Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	hicolor-icon-theme
 Requires:	hicolor-icon-theme
