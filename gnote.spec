@@ -1,15 +1,16 @@
 Summary:	Note-taking application
 Name:		gnote
-Version:	3.8.0
+Version:	3.8.1
 Release:	1
 License:	GPL v3
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnote/3.8/%{name}-%{version}.tar.xz
-# Source0-md5:	f30a8334bfe06ab4733b480b95e0cc19
+# Source0-md5:	f6289cefdc49260b55d1993fa2b69128
 URL:		http://live.gnome.org/Gnote
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1.11
 BuildRequires:	boost-devel >= 1.34.0
+BuildRequires:	desktop-file-utils
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-devel
 BuildRequires:	glibmm-devel >= 2.32
