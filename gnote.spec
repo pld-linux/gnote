@@ -1,11 +1,13 @@
+# TODO: build version without x11 support (plain GTK+) to use on Wayland or Broadway
+#
 Summary:	Note-taking application
 Name:		gnote
-Version:	3.8.1
+Version:	3.10.0
 Release:	1
 License:	GPL v3
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnote/3.8/%{name}-%{version}.tar.xz
-# Source0-md5:	f6289cefdc49260b55d1993fa2b69128
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnote/3.10/%{name}-%{version}.tar.xz
+# Source0-md5:	5943024af775eb67c8cee04e25db72ba
 URL:		http://live.gnome.org/Gnote
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1.11
@@ -14,7 +16,6 @@ BuildRequires:	desktop-file-utils
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-devel
 BuildRequires:	glibmm-devel >= 2.32
-BuildRequires:	gnome-common
 BuildRequires:	gnome-doc-utils
 BuildRequires:	gtk+3-devel >= 3.6.0
 BuildRequires:	gtkmm3-devel >= 3.6.0
@@ -51,7 +52,8 @@ of Tomboy to C++ and consumes fewer resources.
 %setup -q
 
 %build
-%configure
+%configure \
+	--with-x11-support
 %{__make} V=1
 
 %install
@@ -84,8 +86,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README TODO
 %attr(755,root,root) %{_bindir}/gnote
-%attr(755,root,root) %{_libdir}/libgnote-3.8.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgnote-3.8.so.0
+%attr(755,root,root) %{_libdir}/libgnote-3.10.so.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgnote-3.10.so.0
 %dir %{_libdir}/gnote
 %dir %{_libdir}/gnote/addins
 %dir %{_libdir}/gnote/addins/%{version}
@@ -98,11 +100,33 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/gnote/addins/*/notedirectorywatcher.so
 %attr(755,root,root) %{_libdir}/gnote/addins/*/noteoftheday.so
 %attr(755,root,root) %{_libdir}/gnote/addins/*/printnotes.so
+%attr(755,root,root) %{_libdir}/gnote/addins/*/readonly.so
 %attr(755,root,root) %{_libdir}/gnote/addins/*/replacetitle.so
+%attr(755,root,root) %{_libdir}/gnote/addins/*/specialnotes.so
+%attr(755,root,root) %{_libdir}/gnote/addins/*/statistics.so
 %attr(755,root,root) %{_libdir}/gnote/addins/*/stickynoteimport.so
+%attr(755,root,root) %{_libdir}/gnote/addins/*/tableofcontents.so
 %attr(755,root,root) %{_libdir}/gnote/addins/*/tomboyimport.so
 %attr(755,root,root) %{_libdir}/gnote/addins/*/underline.so
 %attr(755,root,root) %{_libdir}/gnote/addins/*/webdavsyncservice.so
+%{_libdir}/gnote/addins/*/backlinks.desktop
+%{_libdir}/gnote/addins/*/bugzilla.desktop
+%{_libdir}/gnote/addins/*/exporttohtml.desktop
+%{_libdir}/gnote/addins/*/filesystemsyncservice.desktop
+%{_libdir}/gnote/addins/*/fixedwidth.desktop
+%{_libdir}/gnote/addins/*/inserttimestamp.desktop
+%{_libdir}/gnote/addins/*/notedirectorywatcher.desktop
+%{_libdir}/gnote/addins/*/noteoftheday.desktop
+%{_libdir}/gnote/addins/*/printnotes.desktop
+%{_libdir}/gnote/addins/*/readonly.desktop
+%{_libdir}/gnote/addins/*/replacetitle.desktop
+%{_libdir}/gnote/addins/*/specialnotes.desktop
+%{_libdir}/gnote/addins/*/statistics.desktop
+%{_libdir}/gnote/addins/*/stickynoteimport.desktop
+%{_libdir}/gnote/addins/*/tableofcontents.desktop
+%{_libdir}/gnote/addins/*/tomboyimport.desktop
+%{_libdir}/gnote/addins/*/underline.desktop
+%{_libdir}/gnote/addins/*/webdavsyncservice.desktop
 %{_datadir}/dbus-1/services/org.gnome.Gnote.service
 %{_datadir}/glib-2.0/schemas/org.gnome.gnote.gschema.xml
 %{_datadir}/gnote
@@ -110,3 +134,5 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/hicolor/*/*/*.png
 %{_iconsdir}/hicolor/*/*/*.svg
 %{_mandir}/man1/gnote.1*
+%{_datadir}/appdata/gnote.appdata.xml
+%{_datadir}/gnome-shell/search-providers/gnote-search-provider.ini
