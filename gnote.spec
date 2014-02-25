@@ -2,12 +2,12 @@
 #
 Summary:	Note-taking application
 Name:		gnote
-Version:	3.10.2
+Version:	3.10.3
 Release:	1
 License:	GPL v3
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnote/3.10/%{name}-%{version}.tar.xz
-# Source0-md5:	24acf14bfb4bf670f0475ff650ded98e
+# Source0-md5:	d0f9e0a5f4c9143d16a5c283c63e7330
 URL:		http://live.gnome.org/Gnote
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1.11
