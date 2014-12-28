@@ -14,7 +14,7 @@ BuildRequires:	automake >= 1.11
 BuildRequires:	boost-devel >= 1.34.0
 BuildRequires:	desktop-file-utils
 BuildRequires:	docbook-dtd412-xml
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	glibmm-devel >= 2.32
 BuildRequires:	gnome-doc-utils
 BuildRequires:	gtk+3-devel >= 3.6.0
