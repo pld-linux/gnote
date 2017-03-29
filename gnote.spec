@@ -1,12 +1,12 @@
 Summary:	Note-taking application
 Summary(pl.UTF-8):	Aplikacja do zbierania notatek
 Name:		gnote
-Version:	3.22.1
+Version:	3.24.0
 Release:	1
 License:	GPL v3+
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnote/3.22/%{name}-%{version}.tar.xz
-# Source0-md5:	95c5f3a5c54e1b89bc7b24b7d94ecba7
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnote/3.24/%{name}-%{version}.tar.xz
+# Source0-md5:	a85270f552f7377212f47b62420bf21e
 URL:		http://live.gnome.org/Gnote
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1.11
@@ -94,8 +94,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README TODO
 %attr(755,root,root) %{_bindir}/gnote
-%attr(755,root,root) %{_libdir}/libgnote-3.22.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgnote-3.22.so.0
+%attr(755,root,root) %{_libdir}/libgnote-3.24.so.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgnote-3.24.so.0
 %dir %{_libdir}/gnote
 %dir %{_libdir}/gnote/addins
 %dir %{_libdir}/gnote/addins/%{version}
