@@ -21,7 +21,7 @@ BuildRequires:	gtkmm3-devel >= 3.18
 BuildRequires:	gtkspell3-devel >= 3.0.0
 BuildRequires:	intltool >= 0.35.0
 BuildRequires:	libsecret-devel >= 0.8
-BuildRequires:	libstdc++-devel
+BuildRequires:	libstdc++-devel >= 6:4.7
 BuildRequires:	libtool >= 2:2
 BuildRequires:	libuuid-devel
 BuildRequires:	libxml2-devel >= 2.0
