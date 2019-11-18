@@ -1,13 +1,13 @@
 Summary:	Note-taking application
 Summary(pl.UTF-8):	Aplikacja do zbierania notatek
 Name:		gnote
-Version:	3.24.0
+Version:	3.34.0
 Release:	1
 License:	GPL v3+
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnote/3.24/%{name}-%{version}.tar.xz
-# Source0-md5:	a85270f552f7377212f47b62420bf21e
-URL:		http://live.gnome.org/Gnote
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnote/3.34/%{name}-%{version}.tar.xz
+# Source0-md5:	03607ea0ceee1f9fa139766bf2ecbbdf
+URL:		https://wiki.gnome.org/Apps/Gnote
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1.11
 BuildRequires:	boost-devel >= 1.34.0
@@ -15,10 +15,9 @@ BuildRequires:	desktop-file-utils
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-tools
 BuildRequires:	glibmm-devel >= 2.32
-BuildRequires:	gnome-doc-utils
+BuildRequires:	gspell-devel >= 1.8.0
 BuildRequires:	gtk+3-devel >= 3.20
 BuildRequires:	gtkmm3-devel >= 3.18
-BuildRequires:	gtkspell3-devel >= 3.0.0
 BuildRequires:	intltool >= 0.35.0
 BuildRequires:	libsecret-devel >= 0.8
 BuildRequires:	libstdc++-devel >= 6:4.7
@@ -38,6 +37,7 @@ Requires(post,postun):	glib2 >= 1:2.32.0
 Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	hicolor-icon-theme
 Requires:	glibmm >= 2.32
+Requires:	gspell >= 1.8.0
 Requires:	gtk+3 >= 3.20
 Requires:	gtkmm3 >= 3.18
 Requires:	hicolor-icon-theme
@@ -92,10 +92,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f gnote.lang
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README TODO
+%doc AUTHORS NEWS README TODO
 %attr(755,root,root) %{_bindir}/gnote
-%attr(755,root,root) %{_libdir}/libgnote-3.24.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgnote-3.24.so.0
+%attr(755,root,root) %{_libdir}/libgnote-3.34.so.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgnote-3.34.so.0
 %dir %{_libdir}/gnote
 %dir %{_libdir}/gnote/addins
 %dir %{_libdir}/gnote/addins/%{version}
@@ -105,6 +105,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/gnote/addins/%{version}/libexporttohtml.so
 %attr(755,root,root) %{_libdir}/gnote/addins/%{version}/libfilesystemsyncservice.so
 %attr(755,root,root) %{_libdir}/gnote/addins/%{version}/libfixedwidth.so
+%attr(755,root,root) %{_libdir}/gnote/addins/%{version}/libgvfssyncservice.so
 %attr(755,root,root) %{_libdir}/gnote/addins/%{version}/libinserttimestamp.so
 %attr(755,root,root) %{_libdir}/gnote/addins/%{version}/libnotedirectorywatcher.so
 %attr(755,root,root) %{_libdir}/gnote/addins/%{version}/libnoteoftheday.so
@@ -125,6 +126,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/gnote/addins/%{version}/exporttohtml.desktop
 %{_libdir}/gnote/addins/%{version}/filesystemsyncservice.desktop
 %{_libdir}/gnote/addins/%{version}/fixedwidth.desktop
+%{_libdir}/gnote/addins/%{version}/gvfssyncservice.desktop
 %{_libdir}/gnote/addins/%{version}/inserttimestamp.desktop
 %{_libdir}/gnote/addins/%{version}/notedirectorywatcher.desktop
 %{_libdir}/gnote/addins/%{version}/noteoftheday.desktop
@@ -139,11 +141,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/gnote/addins/%{version}/tomboyimport.desktop
 %{_libdir}/gnote/addins/%{version}/underline.desktop
 %{_libdir}/gnote/addins/%{version}/webdavsyncservice.desktop
-%{_datadir}/appdata/gnote.appdata.xml
 %{_datadir}/dbus-1/services/org.gnome.Gnote.service
 %{_datadir}/glib-2.0/schemas/org.gnome.gnote.gschema.xml
 %{_datadir}/gnome-shell/search-providers/gnote-search-provider.ini
 %{_datadir}/gnote
+%{_datadir}/metainfo/gnote.appdata.xml
 %{_desktopdir}/gnote.desktop
 %{_iconsdir}/hicolor/*x*/apps/gnote.png
 %{_iconsdir}/hicolor/scalable/apps/gnote.svg
