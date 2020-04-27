@@ -1,26 +1,25 @@
 Summary:	Note-taking application
 Summary(pl.UTF-8):	Aplikacja do zbierania notatek
 Name:		gnote
-Version:	3.34.1
+Version:	3.36.0
 Release:	1
 License:	GPL v3+
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnote/3.34/%{name}-%{version}.tar.xz
-# Source0-md5:	1e101a05a9c2a7aab9730bf25b45656e
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnote/3.36/%{name}-%{version}.tar.xz
+# Source0-md5:	faeb63f6c309deed228873eea53c3624
 URL:		https://wiki.gnome.org/Apps/Gnote
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1.11
-BuildRequires:	boost-devel >= 1.34.0
 BuildRequires:	desktop-file-utils
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-tools
-BuildRequires:	glibmm-devel >= 2.32
+BuildRequires:	glibmm-devel >= 2.62
 BuildRequires:	gspell-devel >= 1.8.0
 BuildRequires:	gtk+3-devel >= 3.20
 BuildRequires:	gtkmm3-devel >= 3.18
 BuildRequires:	intltool >= 0.35.0
 BuildRequires:	libsecret-devel >= 0.8
-BuildRequires:	libstdc++-devel >= 6:4.7
+BuildRequires:	libstdc++-devel >= 6:5
 BuildRequires:	libtool >= 2:2
 BuildRequires:	libuuid-devel
 BuildRequires:	libxml2-devel >= 2.0
@@ -29,14 +28,13 @@ BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.592
 BuildRequires:	tar >= 1:1.22
-BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xz
 BuildRequires:	yelp-tools
 Requires(post,postun):	/sbin/ldconfig
 Requires(post,postun):	glib2 >= 1:2.32.0
 Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	hicolor-icon-theme
-Requires:	glibmm >= 2.32
+Requires:	glibmm >= 2.62
 Requires:	gspell >= 1.8.0
 Requires:	gtk+3 >= 3.20
 Requires:	gtkmm3 >= 3.18
@@ -94,8 +92,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS NEWS README TODO
 %attr(755,root,root) %{_bindir}/gnote
-%attr(755,root,root) %{_libdir}/libgnote-3.34.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgnote-3.34.so.0
+%attr(755,root,root) %{_libdir}/libgnote-3.36.so.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgnote-3.36.so.0
 %dir %{_libdir}/gnote
 %dir %{_libdir}/gnote/addins
 %dir %{_libdir}/gnote/addins/%{version}
