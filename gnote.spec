@@ -1,12 +1,12 @@
 Summary:	Note-taking application
 Summary(pl.UTF-8):	Aplikacja do zbierania notatek
 Name:		gnote
-Version:	3.36.2
+Version:	3.38.0
 Release:	1
 License:	GPL v3+
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnote/3.36/%{name}-%{version}.tar.xz
-# Source0-md5:	2e75e4484ce4fedba61012478c4f87c5
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnote/3.38/%{name}-%{version}.tar.xz
+# Source0-md5:	f027dcc2521a994a8c0d9ee5568a330e
 URL:		https://wiki.gnome.org/Apps/Gnote
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1.11
@@ -41,6 +41,8 @@ Requires:	gtkmm3 >= 3.18
 Requires:	hicolor-icon-theme
 Requires:	libsecret >= 0.8
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		abi_ver		3.38
 
 %description
 Gnote is a desktop note-taking application which is simple and easy to
@@ -92,8 +94,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS NEWS README TODO
 %attr(755,root,root) %{_bindir}/gnote
-%attr(755,root,root) %{_libdir}/libgnote-3.36.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgnote-3.36.so.1
+%attr(755,root,root) %{_libdir}/libgnote-%{abi_ver}.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgnote-%{abi_ver}.so.0
 %dir %{_libdir}/gnote
 %dir %{_libdir}/gnote/addins
 %dir %{_libdir}/gnote/addins/%{version}
