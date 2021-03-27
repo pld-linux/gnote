@@ -1,12 +1,12 @@
 Summary:	Note-taking application
 Summary(pl.UTF-8):	Aplikacja do zbierania notatek
 Name:		gnote
-Version:	3.38.1
+Version:	40.0
 Release:	1
 License:	GPL v3+
 Group:		X11/Applications
-Source0:	https://download.gnome.org/sources/gnote/3.38/%{name}-%{version}.tar.xz
-# Source0-md5:	cedcf63f7b8745a06f8c464d96174838
+Source0:	https://download.gnome.org/sources/gnote/40/%{name}-%{version}.tar.xz
+# Source0-md5:	9d1f62555a6dc3fdc4c6197fec8471a3
 URL:		https://wiki.gnome.org/Apps/Gnote
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1.11
@@ -16,7 +16,7 @@ BuildRequires:	gettext-tools
 BuildRequires:	glibmm-devel >= 2.62
 BuildRequires:	gspell-devel >= 1.8.0
 BuildRequires:	gtk+3-devel >= 3.22.20
-BuildRequires:	gtkmm3-devel >= 3.18
+BuildRequires:	gtkmm3-devel >= 3.22.20
 BuildRequires:	intltool >= 0.35.0
 BuildRequires:	libsecret-devel >= 0.8
 BuildRequires:	libstdc++-devel >= 6:5
@@ -37,12 +37,12 @@ Requires(post,postun):	hicolor-icon-theme
 Requires:	glibmm >= 2.62
 Requires:	gspell >= 1.8.0
 Requires:	gtk+3 >= 3.22.20
-Requires:	gtkmm3 >= 3.18
+Requires:	gtkmm3 >= 3.22.20
 Requires:	hicolor-icon-theme
 Requires:	libsecret >= 0.8
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		abi_ver		3.38
+%define		abi_ver		40
 
 %description
 Gnote is a desktop note-taking application which is simple and easy to
@@ -95,7 +95,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS NEWS README TODO
 %attr(755,root,root) %{_bindir}/gnote
 %attr(755,root,root) %{_libdir}/libgnote-%{abi_ver}.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgnote-%{abi_ver}.so.1
+%attr(755,root,root) %ghost %{_libdir}/libgnote-%{abi_ver}.so.0
 %dir %{_libdir}/gnote
 %dir %{_libdir}/gnote/addins
 %dir %{_libdir}/gnote/addins/%{version}
@@ -143,10 +143,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/gnote/addins/%{version}/webdavsyncservice.desktop
 %{_datadir}/dbus-1/services/org.gnome.Gnote.service
 %{_datadir}/glib-2.0/schemas/org.gnome.gnote.gschema.xml
-%{_datadir}/gnome-shell/search-providers/gnote-search-provider.ini
+%{_datadir}/gnome-shell/search-providers/org.gnome.Gnote.search-provider.ini
 %{_datadir}/gnote
-%{_datadir}/metainfo/gnote.appdata.xml
-%{_desktopdir}/gnote.desktop
+%{_datadir}/metainfo/org.gnome.gnote.appdata.xml
+%{_desktopdir}/org.gnome.gnote.desktop
 %{_iconsdir}/hicolor/*x*/apps/gnote.png
 %{_iconsdir}/hicolor/scalable/apps/gnote.svg
 %{_mandir}/man1/gnote.1*
