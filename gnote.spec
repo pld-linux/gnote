@@ -1,16 +1,17 @@
 Summary:	Note-taking application
 Summary(pl.UTF-8):	Aplikacja do zbierania notatek
 Name:		gnote
-Version:	42.2
+Version:	43.2
 Release:	1
 License:	GPL v3+
 Group:		X11/Applications
-Source0:	https://download.gnome.org/sources/gnote/42/%{name}-%{version}.tar.xz
-# Source0-md5:	5ccb508c8a0f4c73849b666f8e0b5d69
+Source0:	https://download.gnome.org/sources/gnote/43/%{name}-%{version}.tar.xz
+# Source0-md5:	74e6980d47ae34922f438aca7b77cf51
 URL:		https://wiki.gnome.org/Apps/Gnote
 BuildRequires:	desktop-file-utils
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-tools
+BuildRequires:	glib2-devel >= 1:2.62
 BuildRequires:	glibmm-devel >= 2.62
 BuildRequires:	gspell-devel >= 1.8.0
 BuildRequires:	gtk+3-devel >= 3.22.20
@@ -20,7 +21,7 @@ BuildRequires:	libstdc++-devel >= 6:5
 BuildRequires:	libuuid-devel
 BuildRequires:	libxml2-devel >= 2.0
 BuildRequires:	libxslt-devel
-BuildRequires:	meson >= 0.50.0
+BuildRequires:	meson >= 0.59.0
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
 BuildRequires:	python3 >= 1:3
@@ -33,6 +34,7 @@ Requires(post,postun):	/sbin/ldconfig
 Requires(post,postun):	glib2 >= 1:2.62
 Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	hicolor-icon-theme
+Requires:	glib2 >= 1:2.62
 Requires:	glibmm >= 2.62
 Requires:	gspell >= 1.8.0
 Requires:	gtk+3 >= 3.22.20
@@ -41,7 +43,7 @@ Requires:	hicolor-icon-theme
 Requires:	libsecret >= 0.8
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		abi_ver		42
+%define		abi_ver		43
 
 %description
 Gnote is a desktop note-taking application which is simple and easy to
@@ -87,7 +89,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f gnote.lang
 %defattr(644,root,root,755)
-%doc AUTHORS NEWS README TODO
+%doc AUTHORS NEWS README.md TODO
 %attr(755,root,root) %{_bindir}/gnote
 %attr(755,root,root) %{_libdir}/libgnote-%{abi_ver}.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libgnote-%{abi_ver}.so.0
@@ -142,6 +144,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gnote
 %{_datadir}/metainfo/org.gnome.Gnote.appdata.xml
 %{_desktopdir}/org.gnome.Gnote.desktop
-%{_iconsdir}/hicolor/*x*/apps/org.gnome.Gnote.svg
+%{_iconsdir}/hicolor/*x*/apps/org.gnome.Gnote.png
 %{_iconsdir}/hicolor/scalable/apps/org.gnome.Gnote.svg
 %{_mandir}/man1/gnote.1*
