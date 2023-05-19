@@ -2,7 +2,7 @@ Summary:	Note-taking application
 Summary(pl.UTF-8):	Aplikacja do zbierania notatek
 Name:		gnote
 Version:	43.2
-Release:	1
+Release:	2
 License:	GPL v3+
 Group:		X11/Applications
 Source0:	https://download.gnome.org/sources/gnote/43/%{name}-%{version}.tar.xz
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %ninja_install -C build
 
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libgnote-%{abi_ver}.so
+
+# not supported by glibc (as of 2.37)
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/ie
 
 %find_lang gnote --with-gnome
 
