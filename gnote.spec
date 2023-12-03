@@ -1,23 +1,21 @@
 Summary:	Note-taking application
 Summary(pl.UTF-8):	Aplikacja do zbierania notatek
 Name:		gnote
-Version:	44.2
+Version:	45.0
 Release:	1
 License:	GPL v3+
 Group:		X11/Applications
-Source0:	https://download.gnome.org/sources/gnote/44/%{name}-%{version}.tar.xz
-# Source0-md5:	7965dac9b3bda727e00130272302a717
+Source0:	https://download.gnome.org/sources/gnote/45/%{name}-%{version}.tar.xz
+# Source0-md5:	c60f5d936a7e82f51572dbc85003c755
 URL:		https://wiki.gnome.org/Apps/Gnote
 BuildRequires:	desktop-file-utils
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-tools
-BuildRequires:	glib2-devel >= 1:2.62
-BuildRequires:	glibmm-devel >= 2.62
-BuildRequires:	gspell-devel >= 1.8.0
-BuildRequires:	gtk+3-devel >= 3.22.20
-BuildRequires:	gtkmm3-devel >= 3.22.20
+BuildRequires:	glib2-devel >= 1:2.74
+BuildRequires:	glibmm2.68-devel >= 2.74
+BuildRequires:	gtkmm4-devel >= 4.0
 BuildRequires:	libsecret-devel >= 0.8
-BuildRequires:	libstdc++-devel >= 6:5
+BuildRequires:	libstdc++-devel >= 6:7
 BuildRequires:	libuuid-devel
 BuildRequires:	libxml2-devel >= 2.0
 BuildRequires:	libxslt-devel
@@ -31,19 +29,17 @@ BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 BuildRequires:	yelp-tools
 Requires(post,postun):	/sbin/ldconfig
-Requires(post,postun):	glib2 >= 1:2.62
+Requires(post,postun):	glib2 >= 1:2.74
 Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	hicolor-icon-theme
-Requires:	glib2 >= 1:2.62
-Requires:	glibmm >= 2.62
-Requires:	gspell >= 1.8.0
-Requires:	gtk+3 >= 3.22.20
-Requires:	gtkmm3 >= 3.22.20
+Requires:	glib2 >= 1:2.74
+Requires:	glibmm2.68 >= 2.74
+Requires:	gtkmm4 >= 4.0
 Requires:	hicolor-icon-theme
 Requires:	libsecret >= 0.8
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		abi_ver		44
+%define		abi_ver		45
 
 %description
 Gnote is a desktop note-taking application which is simple and easy to
@@ -114,7 +110,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/gnote/plugins/%{abi_ver}/libreplacetitle.so
 %attr(755,root,root) %{_libdir}/gnote/plugins/%{abi_ver}/libspecialnotes.so
 %attr(755,root,root) %{_libdir}/gnote/plugins/%{abi_ver}/libstatistics.so
-%attr(755,root,root) %{_libdir}/gnote/plugins/%{abi_ver}/libstickynoteimport.so
 %attr(755,root,root) %{_libdir}/gnote/plugins/%{abi_ver}/libtableofcontents.so
 %attr(755,root,root) %{_libdir}/gnote/plugins/%{abi_ver}/libtodo.so
 %attr(755,root,root) %{_libdir}/gnote/plugins/%{abi_ver}/libtomboyimport.so
@@ -135,7 +130,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/gnote/plugins/%{abi_ver}/replacetitle.desktop
 %{_libdir}/gnote/plugins/%{abi_ver}/specialnotes.desktop
 %{_libdir}/gnote/plugins/%{abi_ver}/statistics.desktop
-%{_libdir}/gnote/plugins/%{abi_ver}/stickynoteimport.desktop
 %{_libdir}/gnote/plugins/%{abi_ver}/tableofcontents.desktop
 %{_libdir}/gnote/plugins/%{abi_ver}/todo.desktop
 %{_libdir}/gnote/plugins/%{abi_ver}/tomboyimport.desktop
