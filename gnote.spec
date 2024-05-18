@@ -1,19 +1,20 @@
 Summary:	Note-taking application
 Summary(pl.UTF-8):	Aplikacja do zbierania notatek
 Name:		gnote
-Version:	45.1
+Version:	46.0
 Release:	1
 License:	GPL v3+
 Group:		X11/Applications
-Source0:	https://download.gnome.org/sources/gnote/45/%{name}-%{version}.tar.xz
-# Source0-md5:	9f8a787e3349ba0523fec9fa6147b469
+Source0:	https://download.gnome.org/sources/gnote/46/%{name}-%{version}.tar.xz
+# Source0-md5:	203f652065cd51e7e4e9c25a4149ef55
 URL:		https://wiki.gnome.org/Apps/Gnote
 BuildRequires:	desktop-file-utils
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-tools
 BuildRequires:	glib2-devel >= 1:2.74
 BuildRequires:	glibmm2.68-devel >= 2.74
-BuildRequires:	gtkmm4-devel >= 4.0
+BuildRequires:	gtkmm4-devel >= 4.10.0
+BuildRequires:	libadwaita-devel
 BuildRequires:	libsecret-devel >= 0.8
 BuildRequires:	libstdc++-devel >= 6:7
 BuildRequires:	libuuid-devel
@@ -34,12 +35,12 @@ Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	hicolor-icon-theme
 Requires:	glib2 >= 1:2.74
 Requires:	glibmm2.68 >= 2.74
-Requires:	gtkmm4 >= 4.0
+Requires:	gtkmm4 >= 4.10.0
 Requires:	hicolor-icon-theme
 Requires:	libsecret >= 0.8
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		abi_ver		45
+%define		abi_ver		46
 
 %description
 Gnote is a desktop note-taking application which is simple and easy to
