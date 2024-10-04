@@ -1,12 +1,12 @@
 Summary:	Note-taking application
 Summary(pl.UTF-8):	Aplikacja do zbierania notatek
 Name:		gnote
-Version:	46.1
+Version:	47.0
 Release:	1
 License:	GPL v3+
 Group:		X11/Applications
-Source0:	https://download.gnome.org/sources/gnote/46/%{name}-%{version}.tar.xz
-# Source0-md5:	b54617553b4bad684f74b425046a84cd
+Source0:	https://download.gnome.org/sources/gnote/47/%{name}-%{version}.tar.xz
+# Source0-md5:	0e533ec485a01a6deabbf0ecac0a8d46
 URL:		https://wiki.gnome.org/Apps/Gnote
 BuildRequires:	desktop-file-utils
 BuildRequires:	docbook-dtd412-xml
@@ -40,7 +40,7 @@ Requires:	hicolor-icon-theme
 Requires:	libsecret >= 0.8
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		abi_ver		46
+%define		abi_ver		47
 
 %description
 Gnote is a desktop note-taking application which is simple and easy to
