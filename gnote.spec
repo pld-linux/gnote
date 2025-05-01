@@ -1,12 +1,12 @@
 Summary:	Note-taking application
 Summary(pl.UTF-8):	Aplikacja do zbierania notatek
 Name:		gnote
-Version:	47.2
+Version:	48.0
 Release:	1
 License:	GPL v3+
 Group:		X11/Applications
-Source0:	https://download.gnome.org/sources/gnote/47/%{name}-%{version}.tar.xz
-# Source0-md5:	b583e1bcf2044e647d9d109c76629d69
+Source0:	https://download.gnome.org/sources/gnote/48/%{name}-%{version}.tar.xz
+# Source0-md5:	346964f1790942e585571415691719d5
 URL:		https://wiki.gnome.org/Apps/Gnote
 BuildRequires:	desktop-file-utils
 BuildRequires:	docbook-dtd412-xml
@@ -25,7 +25,7 @@ BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
 BuildRequires:	python3 >= 1:3
 BuildRequires:	rpmbuild(find_lang) >= 1.23
-BuildRequires:	rpmbuild(macros) >= 1.736
+BuildRequires:	rpmbuild(macros) >= 2.042
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 BuildRequires:	yelp-tools
@@ -40,7 +40,7 @@ Requires:	hicolor-icon-theme
 Requires:	libsecret >= 0.8
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		abi_ver		47
+%define		abi_ver		48
 
 %description
 Gnote is a desktop note-taking application which is simple and easy to
@@ -58,14 +58,14 @@ Jest to port aplikacji Tomboy do C++, pochłaniający mniej zasobów.
 %setup -q
 
 %build
-%meson build
+%meson
 
-%ninja_build -C build
+%meson_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%ninja_install -C build
+%meson_install
 
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libgnote-%{abi_ver}.so
 
@@ -92,7 +92,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS NEWS README.md TODO
 %attr(755,root,root) %{_bindir}/gnote
 %attr(755,root,root) %{_libdir}/libgnote-%{abi_ver}.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgnote-%{abi_ver}.so.1
+%attr(755,root,root) %ghost %{_libdir}/libgnote-%{abi_ver}.so.0
 %dir %{_libdir}/gnote
 %dir %{_libdir}/gnote/plugins
 %dir %{_libdir}/gnote/plugins/%{abi_ver}
