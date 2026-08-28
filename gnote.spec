@@ -1,12 +1,12 @@
 Summary:	Note-taking application
 Summary(pl.UTF-8):	Aplikacja do zbierania notatek
 Name:		gnote
-Version:	48.2
+Version:	50.1
 Release:	1
 License:	GPL v3+
 Group:		X11/Applications
-Source0:	https://download.gnome.org/sources/gnote/48/%{name}-%{version}.tar.xz
-# Source0-md5:	65e5ca8c9e871dcc03e4ba7f883816b1
+Source0:	https://download.gnome.org/sources/gnote/50/%{name}-%{version}.tar.xz
+# Source0-md5:	389eea27f1bb4a95037ed4b30e0f2f14
 URL:		https://wiki.gnome.org/Apps/Gnote
 BuildRequires:	desktop-file-utils
 BuildRequires:	docbook-dtd412-xml
@@ -40,7 +40,7 @@ Requires:	hicolor-icon-theme
 Requires:	libsecret >= 0.8
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		abi_ver		48
+%define		abi_ver		50
 
 %description
 Gnote is a desktop note-taking application which is simple and easy to
@@ -91,31 +91,31 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS NEWS README.md TODO
 %attr(755,root,root) %{_bindir}/gnote
-%attr(755,root,root) %{_libdir}/libgnote-%{abi_ver}.so.*.*.*
-%ghost %{_libdir}/libgnote-%{abi_ver}.so.1
+%{_libdir}/libgnote-%{abi_ver}.so.*.*.*
+%ghost %{_libdir}/libgnote-%{abi_ver}.so.0
 %dir %{_libdir}/gnote
 %dir %{_libdir}/gnote/plugins
 %dir %{_libdir}/gnote/plugins/%{abi_ver}
-%attr(755,root,root) %{_libdir}/gnote/plugins/%{abi_ver}/libbacklinks.so
-%attr(755,root,root) %{_libdir}/gnote/plugins/%{abi_ver}/libbugzilla.so
-%attr(755,root,root) %{_libdir}/gnote/plugins/%{abi_ver}/libexporttogtg.so
-%attr(755,root,root) %{_libdir}/gnote/plugins/%{abi_ver}/libexporttohtml.so
-%attr(755,root,root) %{_libdir}/gnote/plugins/%{abi_ver}/libfilesystemsyncservice.so
-%attr(755,root,root) %{_libdir}/gnote/plugins/%{abi_ver}/libfixedwidth.so
-%attr(755,root,root) %{_libdir}/gnote/plugins/%{abi_ver}/libgvfssyncservice.so
-%attr(755,root,root) %{_libdir}/gnote/plugins/%{abi_ver}/libinserttimestamp.so
-%attr(755,root,root) %{_libdir}/gnote/plugins/%{abi_ver}/libnotedirectorywatcher.so
-%attr(755,root,root) %{_libdir}/gnote/plugins/%{abi_ver}/libnoteoftheday.so
-%attr(755,root,root) %{_libdir}/gnote/plugins/%{abi_ver}/libprintnotes.so
-%attr(755,root,root) %{_libdir}/gnote/plugins/%{abi_ver}/libreadonly.so
-%attr(755,root,root) %{_libdir}/gnote/plugins/%{abi_ver}/libreplacetitle.so
-%attr(755,root,root) %{_libdir}/gnote/plugins/%{abi_ver}/libspecialnotes.so
-%attr(755,root,root) %{_libdir}/gnote/plugins/%{abi_ver}/libstatistics.so
-%attr(755,root,root) %{_libdir}/gnote/plugins/%{abi_ver}/libtableofcontents.so
-%attr(755,root,root) %{_libdir}/gnote/plugins/%{abi_ver}/libtodo.so
-%attr(755,root,root) %{_libdir}/gnote/plugins/%{abi_ver}/libtomboyimport.so
-%attr(755,root,root) %{_libdir}/gnote/plugins/%{abi_ver}/libunderline.so
-%attr(755,root,root) %{_libdir}/gnote/plugins/%{abi_ver}/libwebdavsyncservice.so
+%{_libdir}/gnote/plugins/%{abi_ver}/libbacklinks.so
+%{_libdir}/gnote/plugins/%{abi_ver}/libbugzilla.so
+%{_libdir}/gnote/plugins/%{abi_ver}/libexporttogtg.so
+%{_libdir}/gnote/plugins/%{abi_ver}/libexporttohtml.so
+%{_libdir}/gnote/plugins/%{abi_ver}/libfilesystemsyncservice.so
+%{_libdir}/gnote/plugins/%{abi_ver}/libfixedwidth.so
+%{_libdir}/gnote/plugins/%{abi_ver}/libgvfssyncservice.so
+%{_libdir}/gnote/plugins/%{abi_ver}/libinserttimestamp.so
+%{_libdir}/gnote/plugins/%{abi_ver}/libnotedirectorywatcher.so
+%{_libdir}/gnote/plugins/%{abi_ver}/libnoteoftheday.so
+%{_libdir}/gnote/plugins/%{abi_ver}/libprintnotes.so
+%{_libdir}/gnote/plugins/%{abi_ver}/libreadonly.so
+%{_libdir}/gnote/plugins/%{abi_ver}/libreplacetitle.so
+%{_libdir}/gnote/plugins/%{abi_ver}/libspecialnotes.so
+%{_libdir}/gnote/plugins/%{abi_ver}/libstatistics.so
+%{_libdir}/gnote/plugins/%{abi_ver}/libtableofcontents.so
+%{_libdir}/gnote/plugins/%{abi_ver}/libtodo.so
+%{_libdir}/gnote/plugins/%{abi_ver}/libtomboyimport.so
+%{_libdir}/gnote/plugins/%{abi_ver}/libunderline.so
+%{_libdir}/gnote/plugins/%{abi_ver}/libwebdavsyncservice.so
 %{_libdir}/gnote/plugins/%{abi_ver}/backlinks.desktop
 %{_libdir}/gnote/plugins/%{abi_ver}/bugzilla.desktop
 %{_libdir}/gnote/plugins/%{abi_ver}/exporttogtg.desktop
